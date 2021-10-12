@@ -1,5 +1,16 @@
 window.onload=function(){
     //定义body的margin由默认值8px->0px
+    var icon = document.createElement("link");
+    icon.setAttribute('rel', "icon");
+    icon.setAttribute('href', "favicon.ico");
+    document.head.appendChild(icon);
+    var imgs = document.body.getElementsByTagName("img");
+    for (let i = 0; i < imgs.length; i++)
+    {
+        imgs[i].style.backgroundColor = "rgba(0,0,0,0)";
+    }
+    document.title = "Speed Box";
+    document.body.style.color = "#FFFFFF";
     document.body.style.margin="0";
     document.body.style.background="#30333F";
     //创建canvas画布

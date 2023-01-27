@@ -4,7 +4,7 @@ const inputDOM = document.getElementById('search-input')
 
 var script = null
 
-function get_result(keyword) {
+function goto_page(keyword) {
   window.location.href = 'https://cn.bing.com/search?q=' + keyword
 }
 
@@ -15,7 +15,7 @@ function suggest_callback(jsObj) {
   if (res) {
     let data = res[0].Suggests;
     for (var i = 0; i != data.length; i++){
-      html += '<li>' + data[i].Txt + '</li>'
+      html += '<li class="active-item">' + data[i].Txt + '</li>'
     }
   } else {
     html = '<i>没有匹配结果<i>'
@@ -24,6 +24,13 @@ function suggest_callback(jsObj) {
   suggestBoxDOM.style.display = 'block';
 }
 
+document.body.onclick = function (e) {
+  // 触发该事件的直接元素
+  var type = e.target;
+  if((type.className != "active-item")) {
+    suggestBoxDOM.style.display = 'none';
+  }
+};
 
 inputDOM.onkeydown = function submit_search(event) {
   let e = window.event || event
@@ -33,11 +40,11 @@ inputDOM.onkeydown = function submit_search(event) {
       suggestBoxDOM.style.display = 'none';
       return
     }
-    get_result(keyword)
+    goto_page(keyword)
   }
 }
 
-inputDOM.oninput = function get_suggets() {
+function get_suggets() {
   if (!inputDOM.value.length) {
     suggestBoxDOM.style.display = 'none';
     return
@@ -51,26 +58,28 @@ inputDOM.oninput = function get_suggets() {
   document.body.appendChild(script)
 }
 
+inputDOM.oninput = get_suggets()
+
 inputDOM.onfocus = () => {
   if (inputDOM.value.length) {
-    suggestBoxDOM.style.display = 'block';
+    if (suggestDOM.innerHTML.length) {
+      suggestBoxDOM.style.display = 'block';
+    } else {
+      get_suggets()
+    }
   }
-}
-
-inputDOM.onblur = () => {
-  suggestBoxDOM.style.display = 'none';
 }
 
 suggestBoxDOM.onclick = e => {
   e = e || window.event
   var target = e.target || e.srcElement
   if (target.tagName.toLowerCase() === 'li') {
-    get_result(target.innerHTML)
+    goto_page(target.innerHTML)
   }
 }
 
 document.getElementById('icon-search').onclick = e => {
   if (inputDOM.value.length) {
-    get_result(inputDOM.value)
+    goto_page(inputDOM.value)
   }
 }

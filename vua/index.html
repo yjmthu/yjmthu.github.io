@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vua 导航</title>
+  <link rel="stylesheet" type="text/css" href="assets/styles/mian.css">
+</head>
+<body>
+<!-- <div style="width:54%;margin-left:23%;"> -->
+  <img src="assets/icons/12152_uhd.jpg" id="background-image" alt="background-image"/>
+  <div id="main">
+    <div id="logo">
+      <img src="assets/icons/microsoft.svg">
+    </div>
+    <div id="input">
+      <div id="input-box">
+        <input id="search-input" type="search" onkeydown="submit_search(event);">
+        <svg id="icon-search" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"></path>
+        </svg>
+      </div>
+      <div id="suggest-box"><ul id="search-suggest"></ul></div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>

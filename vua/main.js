@@ -58,7 +58,7 @@ function get_suggets() {
   document.body.appendChild(script)
 }
 
-inputDOM.oninput = get_suggets()
+inputDOM.oninput = get_suggets
 
 inputDOM.onfocus = () => {
   if (inputDOM.value.length) {

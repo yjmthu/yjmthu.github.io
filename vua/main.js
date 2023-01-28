@@ -1,7 +1,7 @@
 const suggestDOM = document.getElementById('search-suggest');
 const suggestBoxDOM = document.getElementById('suggest-box')
 const inputDOM = document.getElementById('search-input')
-const regex = /^(?:(http|https|ftp):\/\/)?((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i
+const regex = /^(?:(http|https|ftp):\/\/)((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i
 
 var script = null
 

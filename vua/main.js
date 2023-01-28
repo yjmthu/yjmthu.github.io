@@ -1,11 +1,16 @@
 const suggestDOM = document.getElementById('search-suggest');
 const suggestBoxDOM = document.getElementById('suggest-box')
 const inputDOM = document.getElementById('search-input')
+const regex = /^(?:(http|https|ftp):\/\/)?((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i
 
 var script = null
 
 function goto_page(keyword) {
-  window.location.href = 'https://cn.bing.com/search?q=' + keyword
+  if (regex.test(keyword)) {
+    window.location.href = keyword
+  } else {
+    window.location.href = 'https://cn.bing.com/search?q=' + keyword
+  }
 }
 
 function suggest_callback(jsObj) {
@@ -54,7 +59,7 @@ function get_suggets() {
     document.body.removeChild(script)
   }
   script = document.createElement('script')
-  script.src = 'https://api.bing.com/qsonhs.aspx?type=cb&q=' + inputDOM.value + '&cb=suggest_callback'
+  script.src = 'http://api.bing.com/qsonhs.aspx?type=cb&q=' + inputDOM.value + '&cb=suggest_callback'
   document.body.appendChild(script)
 }
 

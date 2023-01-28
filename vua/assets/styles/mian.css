@@ -8,11 +8,33 @@ html {
 
 body {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   padding: 0;
   margin: 0;
   position: relative;
   background-color: darkslategray;
+}
+
+/* Designing for scroll-bar */
+::-webkit-scrollbar {
+  width: 2px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: gray;
+  border-radius: 1px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: darkgray;
+  border-radius: 1px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #777;
 }
 
 #background-image {
@@ -43,7 +65,7 @@ body {
 #main {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 40%;
   transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
@@ -84,7 +106,7 @@ body {
 #suggest-box {
   top: 100%;
   left: 50%;
-  width: 80%;
+  width: 85%;
   border-radius: 0 0 10px 10px;
   position: absolute;
   transform: translateX(-50%);
@@ -96,14 +118,17 @@ body {
 #search-suggest {
   list-style: none;
   list-style-type: none;
-  margin: 10px 15px;
+  margin: 8px 10px;
   padding: 0;
+  max-height: 150px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #search-suggest > li {
   margin: 2px 4px;
-  padding: 2px;
-  border-radius: 2px;
+  padding: 4px 6px;
+  border-radius: 4px;
   background-color: transparent;
   color: white;
 }

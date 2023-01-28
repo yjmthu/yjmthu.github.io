@@ -59,7 +59,7 @@ function get_suggets() {
     document.body.removeChild(script)
   }
   script = document.createElement('script')
-  script.src = 'http://api.bing.com/qsonhs.aspx?type=cb&q=' + inputDOM.value + '&cb=suggest_callback'
+  script.src = 'https://api.bing.com/qsonhs.aspx?type=cb&q=' + inputDOM.value + '&cb=suggest_callback'
   document.body.appendChild(script)
 }
 

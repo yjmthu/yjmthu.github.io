@@ -104,6 +104,7 @@ body {
   left: 50%;
   width: 85%;
   border-radius: 0 0 10px 10px;
+  padding: 8px 10px;
   position: absolute;
   transform: translateX(-50%);
   background-color: transparent;
@@ -112,9 +113,10 @@ body {
 }
 
 #search-suggest {
+  position: relative;
   list-style: none;
   list-style-type: none;
-  margin: 8px 10px;
+  margin: 0;
   padding: 0;
   max-height: 160px;
   overflow-x: hidden;
@@ -122,21 +124,25 @@ body {
 }
 
 #search-suggest > li {
-  margin: 2px 4px;
-  padding: 4px 6px;
+  /* margin: 2px 4px; */
+  padding: 6px 10px;
   border-radius: 4px;
   background-color: transparent;
   color: white;
 }
 
+#search-suggest > li:hover, #search-suggest > li.selected-item {
+  background-color: rgba(200, 200, 200, 0.1);
+}
+
+/* li.selected-item {
+  background-color: rgba(200, 200, 200, 0.1);
+} */
+
 #search-suggest > i {
   background-color: transparent;
   font-size: 7pt;
   color: gray;
-}
-
-#search-suggest > li:hover {
-  background-color: rgba(200, 200, 200, 0.1);
 }
 
 @media screen and (max-width: 720px) {

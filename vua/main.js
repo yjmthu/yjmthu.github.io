@@ -16,11 +16,19 @@ function show_suggest() {
   suggestBoxDOM.style.display = 'block'
 }
 
-function goto_page(keyword) {
+function goto_page(keyword, smart=true) {
+  const url = `http://${keyword}`
+  let href = null
   if (regex.test(keyword)) {
-    window.location.href = keyword
+    href = keyword
+  } else if (smart && regex.test(url)) {
+    href = url
   } else {
-    window.location.href = 'https://cn.bing.com/search?q=' + keyword
+    href = 'https://cn.bing.com/search?q=' + keyword
+  }
+
+  if (href) {
+    window.location.href = href
   }
 }
 
@@ -85,7 +93,7 @@ inputDOM.onkeydown = function submit_search(event) {
   const keyword = inputDOM.value
   if (e.keyCode === '\r'.charCodeAt()) {
     if (!keyword.length) return
-    goto_page(keyword)
+    goto_page(keyword, true)
   } else if (e.keyCode === 38) {
     if (!keyword.length) return
     let els = suggestDOM.getElementsByTagName('li')
@@ -154,6 +162,6 @@ suggestBoxDOM.onclick = e => {
 
 document.getElementById('icon-search').onclick = e => {
   if (inputDOM.value.length) {
-    goto_page(inputDOM.value)
+    goto_page(inputDOM.value, false)
   }
 }

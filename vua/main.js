@@ -2,6 +2,7 @@ const suggestDOM = document.getElementById('search-suggest');
 const suggestBoxDOM = document.getElementById('suggest-box')
 const inputDOM = document.getElementById('search-input')
 const regex = /^(?:(http|https|ftp):\/\/)((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i
+const logoDOM = document.getElementById('logo')
 
 var script = null
 var selected = -1
@@ -41,11 +42,17 @@ function suggest_callback(jsObj) {
 
 document.body.onclick = function (e) {
   // 触发该事件的直接元素
-  var type = e.target;
-  if((type.className != "active-item")) {
+  if((e.target.className != "active-item")) {
     hide_suggest()
+    if (e.target.id !== 'logo') {
+      let box = document.getElementById('favorite-box')
+      if (box && box.style.display === 'grid') {
+        box.style.display = 'none'
+      }
+    }
   }
 }
+
 
 function adjust_selected(el) {
 
@@ -64,6 +71,14 @@ function adjust_selected(el) {
     return
   }
 }
+
+function show_favorite() {
+  let box = document.getElementById('favorite-box')
+  if (box)
+    box.style.display = 'grid'
+}
+
+logoDOM.onclick = (e) => show_favorite()
 
 inputDOM.onkeydown = function submit_search(event) {
   let e = window.event || event

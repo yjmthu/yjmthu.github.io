@@ -3,6 +3,18 @@ const suggestBoxDOM = document.getElementById('suggest-box')
 const inputDOM = document.getElementById('search-input')
 const regex = /^(?:(http|https|ftp):\/\/)((?:[\w-]+\.)+[a-z0-9]+)((?:\/[^/?#]*)+)?(\?[^#]+)?(#.+)?$/i
 const logoDOM = document.getElementById('logo')
+const favoriteBoxDom = document.getElementById('favorite-box')
+const configBoxDom = document.getElementById('config-box')
+let bookmarks = [
+  {
+    name: '网络学堂',
+    href: 'https://learn.tsinghua.edu.cn/f/login'
+  },
+  {
+    name: '信息门户',
+    href: 'http://info.tsinghua.edu.cn/'
+  }
+]
 
 var script = null
 var selected = -1
@@ -53,14 +65,13 @@ document.body.onclick = function (e) {
   if((e.target.className != "active-item")) {
     hide_suggest()
     if (e.target.id !== 'logo') {
-      let box = document.getElementById('favorite-box')
-      if (box && box.style.display === 'grid') {
-        box.style.display = 'none'
+      if (favoriteBoxDom.style.display === 'grid') {
+        favoriteBoxDom.style.display = 'none'
+        // console.log(e.target)
       }
     }
   }
 }
-
 
 function adjust_selected(el) {
 
@@ -81,9 +92,7 @@ function adjust_selected(el) {
 }
 
 function show_favorite() {
-  let box = document.getElementById('favorite-box')
-  if (box)
-    box.style.display = 'grid'
+  favoriteBoxDom.style.display = 'grid'
 }
 
 logoDOM.onclick = (e) => show_favorite()
@@ -165,3 +174,62 @@ document.getElementById('icon-search').onclick = e => {
     goto_page(inputDOM.value, false)
   }
 }
+
+function cancelConfig() {
+  configBoxDom.style.visibility = 'hidden'
+}
+
+function saveConfig(data) {
+  bookmarks.push(data)
+  window.localStorage.bookmarks = JSON.stringify(bookmarks)
+
+  const item = document.createElement('a')
+  item.href = data.href
+  item.className = 'favorite-item'
+  item.innerHTML = data.name
+
+  favoriteBoxDom.insertBefore(item, favoriteBoxDom.children[favoriteBoxDom.children.length - 1])
+}
+
+function confirmConfig(form) {
+  if (configBoxDom.style.visibility === 'visible') {
+    configBoxDom.style.visibility = 'hidden'
+    const formData = new FormData(form)
+    const name = formData.get('name')
+    const href = formData.get('url')
+    if (name && href) {
+      console.log(name, href)
+      saveConfig({
+        name: name,
+        href: href
+      })
+    }
+  }
+  return false
+}
+
+(function lambda () {
+  // window.localStorage.clear()
+  let i = window.localStorage.bookmarks
+  if (i) {
+    bookmarks = JSON.parse(i)
+  } else {
+    window.localStorage.bookmarks = JSON.stringify(bookmarks)
+  }
+
+  let backItem = favoriteBoxDom.children[0]
+
+  if (!backItem) return
+  
+  backItem.onclick = (e) => {
+    configBoxDom.style.visibility = 'visible'
+  }
+
+  for (let i of bookmarks) {
+    const item = document.createElement('a')
+    item.href = i.href
+    item.className = 'favorite-item'
+    item.innerHTML = i.name
+    favoriteBoxDom.insertBefore(item, backItem)
+  }
+})()

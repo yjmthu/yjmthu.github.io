@@ -22,10 +22,25 @@
       <div id="suggest-box"><ul id="search-suggest"></ul></div>
     </div>
   </div>
-  <div id="favorite-box">
-    <a class="favorite-item" href="https://learn.tsinghua.edu.cn/f/login">网络学堂</a>
-    <a class="favorite-item" href="http://info.tsinghua.edu.cn/">信息门户</a>
+  <div id="favorite-box" class="center">
+    <svg id="add-favorite-item" class="favorite-item" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v12m6-6H6"></path>
+    </svg>
   </div>
+  <form id="config-box" class="center" method="post" onsubmit="return confirmConfig(this)">
+    <div>
+      <span>名称</span>
+      <input type="text" name="name">
+    </div>
+    <div>
+      <span>链接</span>
+      <input type="url" name="url">
+    </div>
+    <div>
+      <button onclick="cancelConfig()">取消</button>
+      <input type="submit"  name="submit" value="确定">
+    </div>
+  </form>
   <script src="main.js"></script>
 </body>
 </html>
